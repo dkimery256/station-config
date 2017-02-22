@@ -1,0 +1,11 @@
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\obj\Debug\Station Configuration Utility.csproj.ResolveComReference.cache
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\obj\Debug\Station_Configuration_Utility.SplashScreen.resources
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\obj\Debug\Station_Configuration_Utility.StationConfigUtil.resources
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\obj\Debug\Station_Configuration_Utility.Properties.Resources.resources
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\obj\Debug\Station Configuration Utility.csproj.GenerateResource.Cache
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\bin\Debug\Station Configuration Utility.exe.config
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\bin\Debug\Station Configuration Utility.exe
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\bin\Debug\Station Configuration Utility.pdb
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\obj\Debug\Station Configuration Utility.exe
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\obj\Debug\Station Configuration Utility.pdb
+C:\Users\dkimery\documents\visual studio 2015\Projects\Station Configuration Utility\Station Configuration Utility\obj\Debug\Station Configuration Utility.csprojResolveAssemblyReference.cache
