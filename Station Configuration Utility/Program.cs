@@ -17,7 +17,7 @@ namespace Station_Configuration_Utility
             //Check to see if another instance of the application is running
             if (!result)
             {
-                MessageBox.Show("Another instance is already running.", "Error!");
+                MessageBox.Show("Another instance of the application is already running.", "Error!");
             }            
             else
             {

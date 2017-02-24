@@ -9,7 +9,7 @@ namespace Station_Configuration_Utility
     {
 
         private FileHandler fh = new FileHandler();
-        private string emailPath = "M:/Station Configs/System/email.txt";
+        private string emailPath = "M:/Station Configs/System/email.txt";        
         private string message;
 
         public void createEmail(string title, string text)
@@ -31,12 +31,12 @@ namespace Station_Configuration_Utility
             try
             {
                 string emailAddress = fh.textReader(emailPath);
-                Outlook._Application _app = new Outlook.Application();
+                Outlook.Application _app = new Outlook.Application();
                 Outlook.MailItem mail = (Outlook.MailItem)_app.CreateItem(Outlook.OlItemType.olMailItem);
                 mail.To = emailAddress;
                 mail.Subject = "Station Config Util Help Request";
                 mail.Body = message;
-                mail.Importance = Outlook.OlImportance.olImportanceNormal;
+                mail.Importance = Outlook.OlImportance.olImportanceNormal;                
                 ((Outlook._MailItem)mail).Send();
                 MessageBox.Show("Email was successfully sent!", "Success!");
             }

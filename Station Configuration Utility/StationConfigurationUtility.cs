@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using System.Drawing;
+using System.IO.Ports;
 
 namespace Station_Configuration_Utility
 {
@@ -78,6 +79,8 @@ namespace Station_Configuration_Utility
         private int avalibleAddress;
         private int standardSelect;
         private int rowIndex;
+        private int tagIndex;
+        private int portIndex;
         private ComboBox stationComboBox;
         private DirectoryHandler dh = new DirectoryHandler();
         private FileHandler fh = new FileHandler();
@@ -337,7 +340,7 @@ namespace Station_Configuration_Utility
                 string selectedValue = stationComboBox.SelectedItem.ToString();
                 if (selectedValue.Equals("") || selectedValue == null)
                 {
-                    MessageBox.Show("You must choose a station config from the station tab\nbefore Exiting the application!", "Error/Warning!");
+                    MessageBox.Show("You must choose a station config from the station tab\nbefore exiting the application!", "Error/Warning!");
                 }
                 else
                 {
@@ -1380,11 +1383,12 @@ namespace Station_Configuration_Utility
             this.WindowState = FormWindowState.Minimized;
         }
 
-        //Email for troubleshooting 
+        //Email for troubleshooting **Does not work due on other accounts**
         private void requestChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Email email = new Email();
-            email.createEmail("Change Request Email", "Enter Request Below:");
+            MessageBox.Show("This function is currently disabled", "Notice");            
+            //Email email = new Email();
+            //email.createEmail("Change Request Email", "Enter Request Below:");          
         }
 
         //Override close button to avoid files being over written with null text
@@ -2193,6 +2197,58 @@ namespace Station_Configuration_Utility
             editAddressTextBox.Text = "";
             editAliasTextBox.Text = "";
             editRemoteStdGroupBox.Enabled = false;
+        }
+
+        //Disable or Enable procedure splitting
+        private void toggleSplit_Click(object sender, EventArgs e)
+        {
+            string[] ini = fh.textReaderAll(metcalIni);
+            string newLine;
+            bool tagUi;
+            //Set proc splitting as needed            
+            tagUi = ini[tagIndex].Contains("yes");
+            switch (tagUi)
+            {
+                case true:
+                    newLine = "tag_ui_show=no";
+                    toggleSplit.Text = "Enable";
+                    procSplitView.Text = "Disabled";
+                    ini[tagIndex] = newLine;
+                    break;
+                case false:
+                    newLine = "tag_ui_show=yes";
+                    toggleSplit.Text = "Disable";
+                    procSplitView.Text = "Enabled";
+                    ini[tagIndex] = newLine;
+                    break;
+            }
+            fh.clearText(metcalIni);
+            fh.textWriterAll(metcalIni, ini);
+            MessageBox.Show("If Metcal Runtime is active you must restart it for the changes to take effect.", "Notice");
+        }
+
+        //Change default COM port
+        private void defaultPortCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (startMethods)
+            {
+                ComboBox box = (ComboBox)sender;
+                var selectedValue = box.SelectedItem.ToString();
+                if (selectedValue != "Select Default Port" && portView.Text != selectedValue)
+                {
+                    var ini = fh.textReaderAll(metcalIni);
+                    ini[portIndex] = string.Format("port                  ={0}", selectedValue);
+                    portView.Text = selectedValue;
+                    fh.clearText(metcalIni);
+                    fh.textWriterAll(metcalIni, ini);
+                    MessageBox.Show("If Metcal Runtime is active you must restart it for the changes to take effect.", "Notice");
+                    defaultPortCB.SelectedIndex = 0;
+                }
+                else if (portView.Text == selectedValue)
+                {
+                    defaultPortCB.SelectedIndex = 0;
+                }
+            }
         }
 
 
@@ -3791,7 +3847,7 @@ namespace Station_Configuration_Utility
             return dialogResult;
         }
 
-        //Get metcal.ini data for proc spliting and serial port
+        //Get metcal.ini data for proc spliting and serial port functionallity
         public void getIniData()
         {
             string[] ini = fh.textReaderAll(metcalIni);
@@ -3800,10 +3856,23 @@ namespace Station_Configuration_Utility
             int equals = 61;
             section = "Disabled";
             port = "None";
+            int count = 0;         
+            //Load serial port combo box  
+            var comPorts = SerialPort.GetPortNames();
+            defaultPortCB.FormattingEnabled = false;           
+            foreach (string com in comPorts)
+            {
+                defaultPortCB.Items.Add(com);
+            }
+            defaultPortCB.SelectedIndex = 0;
+
+            //Extract required data from ini file
             foreach (string line in ini)
             {
                 if (line.Contains("tag"))
                 {
+                    //tag index var used in different method
+                    tagIndex = count;
                     for (int i = 0; i < line.Length; i++)
                     {
                         a = line[i];
@@ -3817,9 +3886,9 @@ namespace Station_Configuration_Utility
                 }
                 if (line.Contains("port") && (line.Contains("COM") || line.Contains("NONE")))
                 {
+                    portIndex = count;
                     for (int i = 0; i < line.Length; i++)
                     {
-
                         a = line[i];
                         if (a == equals)
                         {
@@ -3829,13 +3898,26 @@ namespace Station_Configuration_Utility
                         }
                     }
                 }
+                count++;
             }
+
+            //Set data as need on the GUI
             if (section.Contains("no"))
+            {
                 procSplitView.Text = "Disabled";
+                toggleSplit.Text = "Enable";
+            }               
             else if (section.Contains("yes"))
+            {
                 procSplitView.Text = "Enabled";
+                toggleSplit.Text = "Disable";
+            }
             else
-                procSplitView.Text = "Disabled";
+            {
+                procSplitView.Text = "N/A";
+                toggleSplit.Text = "N/A";
+                toggleSplit.Visible = false;
+            }               
             portView.Text = port;
         }
 

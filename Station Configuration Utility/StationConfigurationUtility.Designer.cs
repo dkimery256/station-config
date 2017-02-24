@@ -163,6 +163,8 @@ namespace Station_Configuration_Utility
             this.ModelNumber1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.assetNumbers1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusGroupBox = new System.Windows.Forms.GroupBox();
+            this.defaultPortCB = new System.Windows.Forms.ComboBox();
+            this.toggleSplit = new System.Windows.Forms.Button();
             this.portView = new System.Windows.Forms.Label();
             this.procSplitView = new System.Windows.Forms.Label();
             this.comLabel = new System.Windows.Forms.Label();
@@ -1630,6 +1632,8 @@ namespace Station_Configuration_Utility
             // statusGroupBox
             // 
             this.statusGroupBox.BackColor = System.Drawing.Color.LightGray;
+            this.statusGroupBox.Controls.Add(this.defaultPortCB);
+            this.statusGroupBox.Controls.Add(this.toggleSplit);
             this.statusGroupBox.Controls.Add(this.portView);
             this.statusGroupBox.Controls.Add(this.procSplitView);
             this.statusGroupBox.Controls.Add(this.comLabel);
@@ -1647,6 +1651,29 @@ namespace Station_Configuration_Utility
             this.statusGroupBox.TabIndex = 5;
             this.statusGroupBox.TabStop = false;
             this.statusGroupBox.Text = "Current Configuration Status";
+            // 
+            // defaultPortCB
+            // 
+            this.defaultPortCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.defaultPortCB.Items.AddRange(new object[] {
+            "Select Default Port",
+            "None"});
+            this.defaultPortCB.Location = new System.Drawing.Point(117, 192);
+            this.defaultPortCB.Name = "defaultPortCB";
+            this.defaultPortCB.Size = new System.Drawing.Size(132, 21);
+            this.defaultPortCB.TabIndex = 12;
+            this.defaultPortCB.Tag = "";
+            this.defaultPortCB.SelectedIndexChanged += new System.EventHandler(this.defaultPortCB_SelectedIndexChanged);
+            // 
+            // toggleSplit
+            // 
+            this.toggleSplit.Location = new System.Drawing.Point(152, 151);
+            this.toggleSplit.Name = "toggleSplit";
+            this.toggleSplit.Size = new System.Drawing.Size(75, 23);
+            this.toggleSplit.TabIndex = 11;
+            this.toggleSplit.Text = "Enable";
+            this.toggleSplit.UseVisualStyleBackColor = true;
+            this.toggleSplit.Click += new System.EventHandler(this.toggleSplit_Click);
             // 
             // portView
             // 
@@ -2023,6 +2050,8 @@ namespace Station_Configuration_Utility
         private DataGridViewTextBoxColumn ModelNumber2;
         private DataGridViewTextBoxColumn assetNumbers2;
         private Button clearAssetButton2;
+        private Button toggleSplit;
+        private ComboBox defaultPortCB;
     }
 }
 
