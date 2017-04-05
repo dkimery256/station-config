@@ -1383,7 +1383,7 @@ namespace Station_Configuration_Utility
             this.WindowState = FormWindowState.Minimized;
         }
 
-        //Email for troubleshooting **Does not work due on other accounts**
+        //Email for troubleshooting **Does not work due to other accounts**
         private void requestChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This function is currently disabled", "Notice");            
